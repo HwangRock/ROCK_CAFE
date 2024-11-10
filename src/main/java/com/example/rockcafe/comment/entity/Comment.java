@@ -21,14 +21,14 @@ public class Comment {
     private long id;
 
     @Column(nullable = false)
-    private String content;
+    private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable=false)
-    private User user; //댓글 작성자
+    private User author; //댓글 작성자
 
     @Column(nullable=false)
-    private LocalDateTime date;
+    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="post_id",nullable = false)

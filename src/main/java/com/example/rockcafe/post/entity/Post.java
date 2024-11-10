@@ -27,7 +27,7 @@ public class Post {
     private String content;
 
     @Column(nullable=false)
-    private LocalDateTime date;
+    private LocalDateTime createdAt;
 
     @Column(nullable=false)
     private String category;
@@ -43,5 +43,8 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable = false)
-    private User user;
+    private User author;
+
+    @Column(nullable=false)
+    private Long commentCount;
 }
