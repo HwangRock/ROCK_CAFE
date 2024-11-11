@@ -25,7 +25,6 @@ public class AWSController {
     @PostMapping
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            System.out.println("uploadFile method called");
             String fileName = file.getOriginalFilename();
             String key = "test/" + fileName;
             System.out.println("Uploading file: " + fileName);
@@ -39,7 +38,7 @@ public class AWSController {
             System.out.println("File uploaded successfully");
 
             String fileUrl = "https://" + bucket + ".s3.amazonaws.com/" + key;
-            System.out.println("File URL: " + fileUrl);
+
             return ResponseEntity.ok(fileUrl);
 
         } catch (Exception e) {

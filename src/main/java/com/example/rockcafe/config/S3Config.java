@@ -22,12 +22,9 @@ public class S3Config {
 
     @Bean
     public AmazonS3 amazonS3() {
-        // 디버깅 정보 출력
-        System.out.println("Initializing AWS S3 with environment variables...");
         System.out.println("AccessKey: " + accessKey);
         System.out.println("Region: " + region);
 
-        // 환경변수가 누락되었을 경우 예외 처리
         if (accessKey == null || secretKey == null || region == null) {
             throw new IllegalArgumentException("AWS credentials or region not configured properly!");
         }
