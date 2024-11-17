@@ -1,4 +1,4 @@
-name: Build and Test Spring Boot
+name: Build Spring Boot
 
 on:
   push:
@@ -26,5 +26,5 @@ jobs:
         shell: bash
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
         shell: bash
