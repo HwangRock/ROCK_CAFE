@@ -1,9 +1,10 @@
-name: Build and Deploy
+name: Build and Test
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -19,21 +20,10 @@ jobs:
           java-version: 17
           distribution: 'temurin'
 
-      - name: Set environment variables
-        env:
-          SPRING_DATASOURCE_NAME: ${{ secrets.SPRING_DATASOURCE_NAME }}
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-          BUCKETNAME: ${{ secrets.BUCKETNAME }}
-          S3ACCESSKEY: ${{ secrets.S3ACCESSKEY }}
-          S3SECRETKEY: ${{ secrets.S3SECRETKEY }}
-          REGION: ${{ secrets.REGION }}
-        run: echo "Environment variables set"
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build -x test
-
-      - name: Run application
         env:
           SPRING_DATASOURCE_NAME: ${{ secrets.SPRING_DATASOURCE_NAME }}
           SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
@@ -42,4 +32,4 @@ jobs:
           S3ACCESSKEY: ${{ secrets.S3ACCESSKEY }}
           S3SECRETKEY: ${{ secrets.S3SECRETKEY }}
           REGION: ${{ secrets.REGION }}
-        run: java -jar build/libs/rockcafe-0.0.1-SNAPSHOT.jar
+        run: ./gradlew build -x test
